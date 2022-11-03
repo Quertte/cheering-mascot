@@ -10,6 +10,7 @@ const path = require('path');
 const ReactDOMServer = require('react-dom/server');
 const React = require('react');
 const Main = require('./views/Main');
+const cheers = require('./models/mascot')
 
 const app = express();
 
@@ -40,6 +41,10 @@ app.get('/', (req, res) => {
   res.write('<!DOCTYPE html>');
   // отправляем отрендеренный HTML и закрываем соединение
   res.end(html);
+});
+
+app.post("/cheers", (req, res) => {
+  res.redirect(`/?signText=${cheers(req.body['cheer_name'])}`)
 });
 
 app.listen(PORT, () => {
